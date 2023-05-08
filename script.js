@@ -48,9 +48,18 @@ const createNewTransaction = () => {
     newTransaction.setAttribute('id', ID);
 
     newTransaction.innerHTML = `
-    <p class="transaction-name"><i class="fas fa-cart-arrow-down"></i>Zakupy</p>
-    <p class="transaction-amount">-400zł<button class="delete"><i class="fas fa-times"></i></button></p>`
+    <p class="transaction-name">${categoryIcon} ${nameInput.value}</p>
+    <p class="transaction-amount">${amountInput.value}zł
+    <button class="delete" onclick="deleteTransaction(${ID})"><i class="fas fa-times"></i></button></p>`
+
+    amountInput.value > 0 ? incomeSection.appendChild(newTransaction) && newTransaction.classList.add('income') : expensesSection.appendChild(newTransaction) && newTransaction.classList.add('expense');
+    moneyArr.push(parseFloat(amountInput.value));
+
+    closePanel();
+    ID++;
+    clearInputs();
 }
+
 
 addTransactionBtn.addEventListener('click', showPanel);
 cancelBtn.addEventListener('click', closePanel);
