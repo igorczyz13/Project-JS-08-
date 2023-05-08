@@ -29,8 +29,8 @@ const closePanel = () => {
 }
 
 const checkForm = () => {
-    if(nameInput.value !== '' && amountInput.value !== '' && categorySelect.value !== 'none') {
-        console.log('ok');
+    if (nameInput.value !== '' && amountInput.value !== '' && categorySelect.value !== 'none') {
+        createNewTransaction();
     } else {
         alert('Wypełnij wszystkie pola!')
     }
@@ -47,6 +47,8 @@ const createNewTransaction = () => {
     newTransaction.classList.add('transaction');
     newTransaction.setAttribute('id', ID);
 
+    checkCategory(selectedCategory);
+
     newTransaction.innerHTML = `
     <p class="transaction-name">${categoryIcon} ${nameInput.value}</p>
     <p class="transaction-amount">${amountInput.value}zł
@@ -58,6 +60,27 @@ const createNewTransaction = () => {
     closePanel();
     ID++;
     clearInputs();
+}
+
+const selectCategory = () => {
+    selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
+}
+
+const checkCategory = transaction => {
+    switch (transaction) {
+        case '[ + ] Przychód':
+            categoryIcon = '<i class="fas fa-money-bill-wave"></i>'
+            break;
+        case '[ - ] Zakupy':
+            categoryIcon = '<i class="fas fa-cart-arrow-down"></i>'
+            break;
+        case '[ - ] Jedzenie':
+            categoryIcon = '<i class="fas fa-hamburger"></i>'
+            break;
+        case '[ - ] Kino':
+            categoryIcon = '<i class="fas fa-film"></i>'
+            break;
+    }
 }
 
 
